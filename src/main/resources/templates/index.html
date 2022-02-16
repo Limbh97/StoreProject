@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h2>메인페이지</h2>
-<a href="/member/save">회원가입</a><br>
-<a href="/member/login">로그인</a><br>
+<div th:if="${session.loginId == null}">
+    <a href="/member/save">회원가입</a><br>
+    <a href="/member/login">로그인</a><br>
+</div>
+
+<div th:if="${session.loginId == 'admin'}">
+    <a href="/admin/save">관리자페이지</a><br>
+    <a href="logout">로그아웃</a><br>
+</div>
 </body>
 </html>
