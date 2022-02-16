@@ -1,19 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <style>
         input{
             display: block;
         }
     </style>
+    <script>
+        function idDp(){
+            const Id = document.getElementById("loginId").value;
+            const ECheck= document.getElementById("idCheck");
+
+            $.ajax({
+                type: 'post',
+                url: '/member/idDuplicate',
+                data: {"loginId":Id},
+                dataType: 'text',
+                success:function(result){
+                    if(result=='ok'){
+                        ECheck.style.color='green';
+                        ECheck.innerHTML="멋진 아이디입니다";
+                    }else{
+                        ECheck.style.color='red';
+                        ECheck.innerHTML="중복된 아이디입니다.";
+                    }
+                },
+                error: function (){
+                    alert('실패');
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <h2>회원가입</h2>
 <form action="/member/save" method="post">
-    <input type="text" name="memberId" placeholder="아이디">
-    <input type="text" name="memberPassword" placeholder="비밀번호">
+    <input type="text" name="memberId" onblur="idDp()" id="loginId" placeholder="아이디">
+    <span id="idCheck"></span>
+    <input type="password" name="memberPassword" placeholder="비밀번호">
     <input type="text" name="memberName" placeholder="이름">
     <input type="text" name="MemberBirth" placeholder="생년월일">
     <input type="text" name="memberArea" placeholder="주소">

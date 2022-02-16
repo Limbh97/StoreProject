@@ -4,10 +4,7 @@ import com.icia.storeproject.dto.MemberSaveDTO;
 import com.icia.storeproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/member/*")
@@ -27,5 +24,12 @@ public class MembmerController {
         System.out.println("memberController.save");
         ms.save(memberSaveDTO);
         return "index";
+    }
+
+    //중복체크
+    @PostMapping("/idDuplicate")
+    public @ResponseBody String idDp(@RequestParam("loginId") String memberId){
+        String result = ms.idDp(memberId);
+        return result;
     }
 }

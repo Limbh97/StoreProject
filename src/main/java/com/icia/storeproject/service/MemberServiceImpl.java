@@ -18,4 +18,15 @@ public class MemberServiceImpl implements MemberService{
         System.out.println("MemberServiceImpl.save");
         return mr.save(memberEntity).getMemberNumber();
     }
+
+    @Override
+    public String idDp(String memberId) {
+        MemberEntity idCheckResult = mr.findByMemberId(memberId);
+        if(idCheckResult == null){
+            return "ok";
+        }else {
+            return "no";
+        }
+
+    }
 }
