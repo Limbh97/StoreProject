@@ -1,5 +1,6 @@
 package com.icia.storeproject.controller;
 
+import com.icia.storeproject.dto.MemberLoginDTO;
 import com.icia.storeproject.dto.MemberSaveDTO;
 import com.icia.storeproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +32,23 @@ public class MembmerController {
     public @ResponseBody String idDp(@RequestParam("loginId") String memberId){
         String result = ms.idDp(memberId);
         return result;
+    }
+
+    //로그인 폼
+    @GetMapping("login")
+    public String loginForm(){
+        return "member/login";
+    }
+
+    //로그인 처리
+    @PostMapping("login")
+    public String login(@ModelAttribute MemberLoginDTO memberLoginDTO){
+        System.out.println("memberController.login");
+        boolean login = ms.login(memberLoginDTO);
+        if(login){
+            return "/index";
+        }else {
+            return "member/login";
+        }
     }
 }

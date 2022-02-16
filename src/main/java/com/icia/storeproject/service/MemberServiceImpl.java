@@ -1,5 +1,6 @@
 package com.icia.storeproject.service;
 
+import com.icia.storeproject.dto.MemberLoginDTO;
 import com.icia.storeproject.dto.MemberSaveDTO;
 import com.icia.storeproject.entity.MemberEntity;
 import com.icia.storeproject.repository.MemberRepository;
@@ -18,7 +19,7 @@ public class MemberServiceImpl implements MemberService{
         System.out.println("MemberServiceImpl.save");
         return mr.save(memberEntity).getMemberNumber();
     }
-
+    //중복체크
     @Override
     public String idDp(String memberId) {
         MemberEntity idCheckResult = mr.findByMemberId(memberId);
@@ -28,5 +29,20 @@ public class MemberServiceImpl implements MemberService{
             return "no";
         }
 
+    }
+
+    //로그인 처리
+    @Override
+    public boolean login(MemberLoginDTO memberLoginDTO) {
+        MemberEntity memberEntity = mr.findByMemberId(memberLoginDTO.getMemberId());
+        if(memberEntity != null) {
+            if (memberEntity.getMemberPassword().equals(memberLoginDTO.getMemberPassword())) {
+                return true;
+            } else {
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 }
