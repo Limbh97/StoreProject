@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
+import static com.icia.storeproject.common.SessionConst.LOGIN_ID;
+
 @Controller
 @RequestMapping("/member/*")
 @RequiredArgsConstructor
@@ -42,10 +46,11 @@ public class MembmerController {
 
     //로그인 처리
     @PostMapping("login")
-    public String login(@ModelAttribute MemberLoginDTO memberLoginDTO){
+    public String login(@ModelAttribute MemberLoginDTO memberLoginDTO, HttpSession session){
         System.out.println("memberController.login");
         boolean login = ms.login(memberLoginDTO);
         if(login){
+            session.setAttribute(LOGIN_ID,memberLoginDTO.getMemberId());
             return "/index";
         }else {
             return "member/login";
