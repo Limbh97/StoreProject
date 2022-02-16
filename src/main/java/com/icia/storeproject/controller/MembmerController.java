@@ -56,4 +56,12 @@ public class MembmerController {
             return "member/login";
         }
     }
+
+    //로그아웃
+    @GetMapping("logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        System.out.println("MemberController.logout");
+        return "redirect:/";
+    }
 }
