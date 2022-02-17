@@ -11,9 +11,16 @@
     <a href="/member/login">로그인</a><br>
 </div>
 
-<div th:if="${session.loginId == 'admin'}">
-    <a href="/admin/save">관리자페이지</a><br>
-    <a href="logout">로그아웃</a><br>
+<div th:if="${session.loginId != null}">
+    <!--관리자-->
+    <div th:if="${session.loginId == 'admin'}">
+        <a href="/admin/save">관리자페이지</a><br>
+        <a href="logout">로그아웃</a><br>
+    </div>
+    <!--일반회원-->
+    <div th:unless="${session.loginId == 'admin'}">
+        <a href="logout">로그아웃</a><br>
+    </div>
 </div>
 세션:<p th:text="${session['loginId']}"></p>
 </body>
