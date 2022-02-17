@@ -62,6 +62,6 @@ public class MembmerController {
     public String logout(HttpSession session) {
         session.invalidate();
         System.out.println("MemberController.logout");
-        return "redirect:/";
+        return "index";
     }
 }
